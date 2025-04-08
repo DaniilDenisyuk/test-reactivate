@@ -36,11 +36,22 @@ describe('Book Controller behavior testing', () => {
     expect(bookController.privateList).toStrictEqual(privateBooksMock)
   })
 
-  test('Should have correct list according UiStore mode', () => {
+  test('Should have correct list according UiController mode', () => {
     uiController.change(UiMode.public)
     expect(bookController.list).toBe(bookController.publicList)
     uiController.change(UiMode.private)
     expect(bookController.list).toBe(bookController.privateList)
+  })
+
+  test('Should show button if UiController mode is public', () => {
+    uiController.change(UiMode.public)
+    expect(bookController.shouldShowAddBookButton).toBe(true)
+  })
+
+  test('Should show correct private book count', () => {
+    expect(bookController.privateBookCount).toBe(
+      bookController.privateList.length
+    )
   })
 
   test('Should create new book and fetch new lists', async () => {
