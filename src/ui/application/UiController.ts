@@ -1,7 +1,7 @@
 import { action, observable } from 'mobx'
 import { UiMode } from '../domain/utils'
 
-export default class UiStore {
+export default class UiController {
   constructor() {
     this.mode = UiMode.public
   }

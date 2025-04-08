@@ -1,15 +1,17 @@
 import { boundMethod } from '@/common/utils'
-import type UiStore from '@/ui/application/UiStore'
+import type UiController from '@/ui/application/UiController'
 import { UiMode } from '@/ui/domain/utils'
 import { action, computed, observable } from 'mobx'
 import type { Book } from '../domain/utils'
 import BookRepository from './BookRepository'
 
-export default class BookStore {
+export default class BookController {
   constructor(
     private readonly repository: BookRepository,
-    private readonly uiStore: UiStore
-  ) {}
+    private readonly uiStore: UiController
+  ) {
+    this.fetchAll()
+  }
 
   @observable accessor publicList: Book[] = []
 
@@ -22,20 +24,35 @@ export default class BookStore {
       : this.publicList
   }
 
-  @action.bound
+  @action
   public async fetchPublicList() {
     this.publicList = await this.repository.getBooks()
   }
-  @action.bound
+  @action
   public async fetchPrivateList() {
     this.privateList = await this.repository.getPrivateBooks()
   }
+
   public async fetchAll() {
     await Promise.allSettled([this.fetchPrivateList(), this.fetchPublicList()])
   }
 
   @boundMethod
   public async addBook(data: Book): Promise<boolean> {
-    return await this.repository.addBook(data)
+    const res = await this.repository.addBook(data)
+    if (res) {
+      this.fetchAll()
+    }
+    return res
+  }
+
+  @computed
+  get shouldShowAddBookButton(): boolean {
+    return this.uiStore.mode === UiMode.public
+  }
+
+  @computed
+  get privateBookCount(): number {
+    return this.privateList.length
   }
 }

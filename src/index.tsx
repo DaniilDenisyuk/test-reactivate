@@ -1,39 +1,38 @@
 import { observer } from 'mobx-react'
-import { useEffect } from 'react'
 import { createRoot } from 'react-dom/client'
+import BookController from './book/application/BookController'
 import BookRepository from './book/application/BookRepository'
-import BookStore from './book/application/BookStore'
 import BookList from './book/presentation/BookList'
 import PrivateBookHeader from './book/presentation/PrivateBookHeader'
 import ApiGateway from './common/ApiGateway'
-import UiStore from './ui/application/UiStore'
+import UiController from './ui/application/UiController'
 import UiModeSwitch from './ui/presentation/UiModeSwitch'
 
+import AddBookButton from './book/presentation/AddBookButton'
 import './styles.css'
 
-const uiStore = new UiStore()
-const bookStore = new BookStore(new BookRepository(new ApiGateway()), uiStore)
+const uiController = new UiController()
+const bookController = new BookController(
+  new BookRepository(new ApiGateway()),
+  uiController
+)
 
 const App = observer(function App({
-  uiStore,
-  bookStore
+  uiController,
+  bookController
 }: {
-  uiStore: UiStore
-  bookStore: BookStore
+  uiController: UiController
+  bookController: BookController
 }) {
-  useEffect(() => {
-    bookStore.fetchAll()
-  }, [])
   return (
     <div>
-      <PrivateBookHeader count={bookStore.privateList.length} />
+      <PrivateBookHeader count={bookController.privateBookCount} />
       <main>
-        <UiModeSwitch mode={uiStore.mode} change={uiStore.change} />
-        <BookList
-          list={bookStore.list}
-          addBook={bookStore.addBook}
-          fetchPublicList={bookStore.fetchPublicList}
-        />
+        <UiModeSwitch mode={uiController.mode} change={uiController.change} />
+        <BookList list={bookController.list} />
+        {bookController.shouldShowAddBookButton && (
+          <AddBookButton addBook={bookController.addBook} />
+        )}
       </main>
     </div>
   )
@@ -41,4 +40,6 @@ const App = observer(function App({
 
 const rootElement = document.getElementById('root')!
 
-createRoot(rootElement).render(<App uiStore={uiStore} bookStore={bookStore} />)
+createRoot(rootElement).render(
+  <App uiController={uiController} bookController={bookController} />
+)

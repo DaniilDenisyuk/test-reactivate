@@ -1,9 +1,9 @@
 import { UiMode } from '../domain/utils'
-import UiStore from './UiStore'
+import UiController from './UiController'
 
-const uiStore = new UiStore()
+const uiStore = new UiController()
 
-describe('Ui Store behavior testing', () => {
+describe('Ui Controller behavior testing', () => {
   test('Mode should be public by default', () => {
     expect(uiStore.mode).toBe(UiMode.public)
   })
