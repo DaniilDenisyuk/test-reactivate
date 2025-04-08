@@ -1,3 +1,3 @@
 # Launch project:
 
-`yarn run dev`
+`yarn && yarn run dev`
