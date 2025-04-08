@@ -1,4 +1,59 @@
 {
-  "name": "test",
-  "packageManager": "yarn@4.2.2"
+  "name": "reaktivate-tdd-challenge-1-sample-begin",
+  "version": "1.0.0",
+  "description": "How we create a fast-test architecture from scratch.",
+  "keywords": [],
+  "main": "src/index.html",
+  "type": "module",
+  "scripts": {
+    "postinstall": "yarn dlx @yarnpkg/sdks vscode",
+    "test": "jest",
+    "dev": "webpack serve --open",
+    "build": "webpack --mode production",
+    "lint": "eslint src/**/*.ts",
+    "prettify": "prettier src/**/*.ts"
+  },
+  "dependencies": {
+    "@aloreljs/bound-decorator": "^3.0.3",
+    "classnames": "^2.5.1",
+    "mobx": "^6.13.7",
+    "mobx-react": "^9.2.0",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.24.0",
+    "@types/jest": "^29.5.14",
+    "@types/react": "^19.1.0",
+    "@types/react-dom": "^19.1.1",
+    "@typescript-eslint/parser": "^8.29.0",
+    "css-loader": "^7.1.2",
+    "eslint": "^9.24.0",
+    "eslint-config-prettier": "^10.1.1",
+    "eslint-import-resolver-typescript": "^4.3.1",
+    "eslint-plugin-import-x": "^4.10.1",
+    "eslint-plugin-react": "^7.37.5",
+    "globals": "^16.0.0",
+    "html-webpack-plugin": "^5.6.3",
+    "jest": "^29.7.0",
+    "mini-css-extract-plugin": "^2.9.2",
+    "prettier": "^3.5.3",
+    "prettier-plugin-organize-imports": "^4.1.0",
+    "ts-jest": "^29.3.1",
+    "ts-loader": "^9.5.2",
+    "tsconfig-paths-webpack-plugin": "^4.2.0",
+    "typescript": "^5.8.3",
+    "typescript-eslint": "^8.29.0",
+    "typescript-plugin-css-modules": "^5.1.0",
+    "webpack": "^5.98.0",
+    "webpack-cli": "^6.0.1",
+    "webpack-dev-server": "^5.2.1"
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ],
+  "packageManager": "yarn@4.8.1"
 }
