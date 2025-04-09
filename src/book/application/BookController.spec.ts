@@ -46,6 +46,8 @@ describe('Book Controller behavior testing', () => {
   test('Should show button if UiController mode is public', () => {
     uiController.change(UiMode.public)
     expect(bookController.shouldShowAddBookButton).toBe(true)
+    uiController.change(UiMode.private)
+    expect(bookController.shouldShowAddBookButton).toBe(false)
   })
 
   test('Should show correct private book count', () => {
